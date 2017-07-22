@@ -4,6 +4,7 @@ Sketches to turn on/off Etekcity RF power outlets using IR remote codes
 
 # Important Links
 http://arduinobasics.blogspot.com/2014/06/433-mhz-rf-module-with-arduino-tutorial.html - Tutorial on using the FS1000A transmitter, MX-RM-5V receiver
+https://arduino-info.wikispaces.com/file/view/IR-Receiver-AX-1838HS.pdf - Datasheet for the IR receiver I bought
 
 # Notes
 RF Code table for Etekcity Remote
