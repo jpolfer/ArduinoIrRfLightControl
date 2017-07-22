@@ -1,3 +1,4 @@
+
 # ArduinoIrRfLightControl
 Sketches to turn on/off Etekcity RF power outlets using IR remote codes
 
@@ -60,5 +61,5 @@ Mark  min:482	 max:518
 Space min:614	 max:1742
 ```
 
-
+*IMPORTANT*: MUST call setPulseLength(189) to set the pulse length for transmit to work!
 
