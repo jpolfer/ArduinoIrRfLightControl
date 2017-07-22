@@ -37,30 +37,35 @@ IRrecv myReceiver(IR_DATA_RECV_PIN);  //pin number for the receiver
 RCSwitch mySwitch = RCSwitch();
 
 void setup() {
+  // Serial setup
+  Serial.begin(9600);
+  delay(2000); 
+  while (!Serial); //delay for Leonardo
+  
   // RC Switch setup
   mySwitch.enableTransmit(RF_DATA_XMIT_PIN);  // Using Pin #10
   mySwitch.setPulseLength(ZAP_OUTLETS_PULSE_LENGTH); // IMPORTANT!  Needed for RF to work!
 
   // IRLib2 setup
-  Serial.begin(9600);
-  delay(2000); while (!Serial); //delay for Leonardo
   myReceiver.enableIRIn(); // Start the receiver
   Serial.println(F("Ready to receive IR signals"));
 }
 
-void loop() {
-    if (myReceiver.getResults()) { 
-    myDecoder.decode();           //Decode it
-    if(myDecoder.value == IR_STAR_CODE) // Received start
-    {
-      Serial.println(F("Received ON button press!"));
-      mySwitch.send(OUTLET_1_ON_CODE, 24); // outlet 1 on
+void loop() 
+{
+    if (myReceiver.getResults()) 
+    { 
+      myDecoder.decode();
+      if(myDecoder.value == IR_STAR_CODE) // Received start
+      {
+        Serial.println(F("Received ON button press!"));
+        mySwitch.send(OUTLET_1_ON_CODE, 24); // outlet 1 on
+      } 
+      if(myDecoder.value == IR_CIRCLE_CODE)
+      {
+        Serial.println(F("Received OFF button press!"));
+        mySwitch.send(OUTLET_1_OFF_CODE, 24); // outlet 1 off
+      }
+      myReceiver.enableIRIn();      //Restart receiver
     }
-    if(myDecoder.value == IR_CIRCLE_CODE)
-    {
-      Serial.println(F("Received OFF button press!"));
-      mySwitch.send(OUTLET_1_OFF_CODE, 24); // outlet 1 off
-    }
-    myReceiver.enableIRIn();      //Restart receiver
-  }
 }
