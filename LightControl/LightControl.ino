@@ -12,8 +12,13 @@
 #define RF_DATA_XMIT_PIN  10
 #define IR_STAR_CODE      0x40BF48B7
 #define IR_CIRCLE_CODE    0x40BFBA45
+
 #define OUTLET_1_ON_CODE  4543795
 #define OUTLET_1_OFF_CODE 4543804
+#define OUTLET_2_ON_CODE  4543939
+#define OUTLET_2_OFF_CODE 4543948
+#define OUTLET_3_ON_CODE  4544259
+#define OUTLET_3_OFF_CODE 4544268
 
 // IRLib2 includes/setup
 #include <IRLibDecodeBase.h> // First include the decode base
