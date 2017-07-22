@@ -49,6 +49,8 @@ void setup() {
   // IRLib2 setup
   myReceiver.enableIRIn(); // Start the receiver
   Serial.println(F("Ready to receive IR signals"));
+
+  toggleOutlet(true);
 }
 
 void loop() 
@@ -56,16 +58,38 @@ void loop()
     if (myReceiver.getResults()) 
     { 
       myDecoder.decode();
+      
       if(myDecoder.value == IR_STAR_CODE) // Received start
       {
-        Serial.println(F("Received ON button press!"));
-        mySwitch.send(OUTLET_1_ON_CODE, 24); // outlet 1 on
-      } 
-      if(myDecoder.value == IR_CIRCLE_CODE)
-      {
-        Serial.println(F("Received OFF button press!"));
-        mySwitch.send(OUTLET_1_OFF_CODE, 24); // outlet 1 off
+        
+        toggleOutlet(false);
       }
+      
       myReceiver.enableIRIn();      //Restart receiver
     }
 }
+
+void toggleOutlet(bool initialize)
+{
+  static bool outletOn;
+  
+  if(initialize)
+  {
+    // initialize to off
+    mySwitch.send(OUTLET_1_OFF_CODE, 24);
+    outletOn = false;
+    return;
+  }
+
+  if(outletOn)
+  {
+    mySwitch.send(OUTLET_1_OFF_CODE, 24);
+  }
+  else
+  {
+    mySwitch.send(OUTLET_1_ON_CODE, 24);
+  }
+
+  outletOn = !outletOn;
+}
+
