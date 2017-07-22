@@ -1,4 +1,3 @@
-
 # ArduinoIrRfLightControl
 Sketches to turn on/off Etekcity RF power outlet switches using IR remote codes
 
@@ -8,8 +7,9 @@ Sketches to turn on/off Etekcity RF power outlet switches using IR remote codes
 - XY-FST RF transmitter for sending RF remote codes (I bought this pack - https://www.amazon.com/gp/product/B017AYH5G0)
 - CHQ1838 IR receiver (I bought this pack - https://www.amazon.com/gp/product/B00EFOQEUM)
   - I think just about any 38Khz filtered IR receiver will work that runs on 5V, though
+- An IR remote (I bought this one, and programmed it with custom codes - https://www.amazon.com/Inteset-INT-422-Universal-Backlit-Learning/dp/B00M4I1BAY/)
 - Etekcity Zap remote outlet switches (I bought this pack - https://www.amazon.com/gp/product/B00DQ2KGNK)
-- IRLib2 for reading remote codes from IR receiver - https://github.com/cyborg5/IRLib2
+- IRLib2 library for reading remote codes from IR receiver - https://github.com/cyborg5/IRLib2
 - RCSwitch library for reading / sending RF codes to outlet switches - https://github.com/sui77/rc-switch
 
 # Important Links
