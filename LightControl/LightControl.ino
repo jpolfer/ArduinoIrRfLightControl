@@ -1,5 +1,21 @@
-#include <RCSwitch.h>
 
+/*
+ * LightControl.ino
+ * by Jon Polfer
+ * 7/22/2017 for the Milwaukee Hack-N-Tell
+ * This code will turn on/off an Etekcity Zap RF-controlled outlet using 
+ * an infrared remote control.
+ */
+
+#define ZAP_OUTLETS_PULSE_LENGTH  189
+#define IR_DATA_RECV_PIN  2
+#define RF_DATA_XMIT_PIN  10
+#define IR_STAR_CODE      0x40BF48B7
+#define IR_CIRCLE_CODE    0x40BFBA45
+#define OUTLET_1_ON_CODE  4543795
+#define OUTLET_1_OFF_CODE 4543804
+
+// IRLib2 includes/setup
 #include <IRLibDecodeBase.h> // First include the decode base
 #include <IRLib_P01_NEC.h>   // Now include only the protocols you wish
 //#include <IRLib_P02_Sony.h>  // to actually use. The lowest numbered
@@ -11,16 +27,19 @@
 // class called "IRdecode" containing only the protocols you want.
 // Now declare an instance of that decoder.
 IRdecode myDecoder;
-
 // Include a receiver either this or IRLibRecvPCI or IRLibRecvLoop
 #include <IRLibRecv.h> 
-IRrecv myReceiver(2);  //pin number for the receiver
+IRrecv myReceiver(IR_DATA_RECV_PIN);  //pin number for the receiver
+
+
+// RCSwitch includes/setup
+#include <RCSwitch.h>
 RCSwitch mySwitch = RCSwitch();
 
 void setup() {
   // RC Switch setup
-  mySwitch.enableTransmit(10);  // Using Pin #10
-  mySwitch.setPulseLength(189); // IMPORTANT!  Needed for RF to work!
+  mySwitch.enableTransmit(RF_DATA_XMIT_PIN);  // Using Pin #10
+  mySwitch.setPulseLength(ZAP_OUTLETS_PULSE_LENGTH); // IMPORTANT!  Needed for RF to work!
 
   // IRLib2 setup
   Serial.begin(9600);
@@ -32,20 +51,16 @@ void setup() {
 void loop() {
     if (myReceiver.getResults()) { 
     myDecoder.decode();           //Decode it
-    if(myDecoder.value == 0x40BF48B7) // Received start
+    if(myDecoder.value == IR_STAR_CODE) // Received start
     {
-      mySwitch.send(4543795, 24); // outlet 1 on
+      Serial.println(F("Received ON button press!"));
+      mySwitch.send(OUTLET_1_ON_CODE, 24); // outlet 1 on
     }
-    if(myDecoder.value == 0x40BFBA45) // Received start
+    if(myDecoder.value == IR_CIRCLE_CODE)
     {
-      mySwitch.send(4543804, 24); // outlet 1 off
+      Serial.println(F("Received OFF button press!"));
+      mySwitch.send(OUTLET_1_OFF_CODE, 24); // outlet 1 off
     }
     myReceiver.enableIRIn();      //Restart receiver
   }
-  /*
-  mySwitch.send(4543795, 24); // outlet 1 on
-  delay(2000);
-  mySwitch.send(4543804, 24); // outlet 1 off
-  delay(2000);
-  */
 }
