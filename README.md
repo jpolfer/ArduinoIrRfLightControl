@@ -3,11 +3,11 @@
 Sketches to turn on/off Etekcity RF power outlets using IR remote codes
 
 # Important Links
-http://arduinobasics.blogspot.com/2014/06/433-mhz-rf-module-with-arduino-tutorial.html - Tutorial on using the FS1000A transmitter, MX-RM-5V receiver
-https://arduino-info.wikispaces.com/file/view/IR-Receiver-AX-1838HS.pdf - Datasheet for the IR receiver I bought
+- http://arduinobasics.blogspot.com/2014/06/433-mhz-rf-module-with-arduino-tutorial.html - Tutorial on using the FS1000A transmitter, MX-RM-5V receiver
+- https://arduino-info.wikispaces.com/file/view/IR-Receiver-AX-1838HS.pdf - Datasheet for the IR receiver I bought
 
 # Notes
-RF Code table for Etekcity Remote
+### RF Code table for Etekcity Remote
 
 | Button / Outlet | ON code                        | OFF code                     |
 |-----------------|--------------------------------|------------------------------|
@@ -15,8 +15,17 @@ RF Code table for Etekcity Remote
 | 2               | 4543939 / 24bit Protocol: 1    | 4543948 / 24bit Protocol: 1  |
 | 3               | 4544259 / 24bit Protocol: 1    | 4544268 / 24bit Protocol: 1  |
 
+#### To determine the codes for your Etekcity outlets:
+1.  Hookup the MX-RM-5V RF receiver to your Arduino (Vcc to 5V, GND to GND, pin next to Vcc is recieve data - set to pin D2)
+1.  Upload the RCSwitch example program ReceiveDemo_Simple to your Arduino using Arduino IDE.
+1.  Turn on the serial monitor program from the Arduino IDE.
+1.  Push the buttons on your remote and record what the codes are that the buttons emit.
 
-IR Code dump from IRLib2
+
+*IMPORTANT*: When sending codes via the XY-FST transmitter, MUST call setPulseLength(189) on the RCSwitch object to set the pulse length for transmit to work!
+
+
+### IR Code dump from IRLib2
 
 Star button (F1 from work 4k monitor)
 
@@ -61,6 +70,11 @@ Extent=67910
 Mark  min:482	 max:518
 Space min:614	 max:1742
 ```
+#### To determine the IR codes from your remote:
 
-*IMPORTANT*: MUST call setPulseLength(189) to set the pulse length for transmit to work!
+1.  Hookup an IR receiver IC to your Arduino (set data out to pin D2)
+1.  Upload the IRLib2 comboDump example program to your Arduino.
+1.  Turn on the serial monitor program from the Arduino IDE.
+1.  Push the buttons on your remote and record what the codes are that the buttons emit.
+
 
