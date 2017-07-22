@@ -1,5 +1,5 @@
 # ArduinoIrRfLightControl
-Sketches to turn on/off Etekcity RF power outlet switches using IR remote codes
+Sketches to turn on/off Etekcity RF power outlet switches using IR remote codes.  See LightControl.ino for code.
 
 ## Parts / Libraries used in project
 - Arduino Duemilinove (although any Arduino supported by both RCSwitch and IRLib2 will work)
