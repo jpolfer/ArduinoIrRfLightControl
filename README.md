@@ -1,9 +1,19 @@
 
 # ArduinoIrRfLightControl
-Sketches to turn on/off Etekcity RF power outlets using IR remote codes
+Sketches to turn on/off Etekcity RF power outlet switches using IR remote codes
+
+## Parts / Libraries used in project
+- Arduino Duemilinove (although any Arduino supported by both RCSwitch and IRLib2 will work)
+- XY-MK-5V RF receiver for reading out outlet RF remote codes (I bought this pack - https://www.amazon.com/gp/product/B017AYH5G0)
+- XY-FST RF transmitter for sending RF remote codes (I bought this pack - https://www.amazon.com/gp/product/B017AYH5G0)
+- CHQ1838 IR receiver (I bought this pack - https://www.amazon.com/gp/product/B00EFOQEUM)
+  - I think just about any 38Khz filtered IR receiver will work that runs on 5V, though
+- Etekcity Zap remote outlet switches (I bought this pack - https://www.amazon.com/gp/product/B00DQ2KGNK)
+- IRLib2 for reading remote codes from IR receiver - https://github.com/cyborg5/IRLib2
+- RCSwitch library for reading / sending RF codes to outlet switches - https://github.com/sui77/rc-switch
 
 # Important Links
-- http://arduinobasics.blogspot.com/2014/06/433-mhz-rf-module-with-arduino-tutorial.html - Tutorial on using the FS1000A transmitter, MX-RM-5V receiver
+- http://arduinobasics.blogspot.com/2014/06/433-mhz-rf-module-with-arduino-tutorial.html - Tutorial on using the XY-FST transmitter, MX-RM-5V receiver
 - https://arduino-info.wikispaces.com/file/view/IR-Receiver-AX-1838HS.pdf - Datasheet for the IR receiver I bought
 
 # Notes
@@ -23,6 +33,11 @@ Sketches to turn on/off Etekcity RF power outlets using IR remote codes
 
 
 *IMPORTANT*: When sending codes via the XY-FST transmitter, MUST call setPulseLength(189) on the RCSwitch object to set the pulse length for transmit to work!
+
+Note:  I read that if you have issues with your transmitter:
+- Try using more than 5V supply, mine supported up to 12V I believe
+- Solder an antenna on there, should be 1/4 wavelength at 433Mhz, which is like 173mm or so based on a Youtube video I saw
+- I had no problems with range on my transmitter
 
 
 ### IR Code dump from IRLib2
